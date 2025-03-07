@@ -52,7 +52,10 @@ const CustomPasswordInput: React.FC<CustomPasswordInputProps> = ({
         />
         <Button
           onClick={togglePasswordVisibility}
+          color="link"
           style={{
+            color: "black",
+            textDecoration: "none",
             backgroundColor: "white",
             borderColor: "#dee2e6",
             borderLeft: "0",
