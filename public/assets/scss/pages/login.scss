@@ -1,0 +1,11 @@
+.login-form {
+    display: flex;
+    align-items: center;
+
+    .form-body {
+        width: 100%;
+        max-width: 350px;
+        padding: 15px;
+        margin: auto;
+    }
+}
