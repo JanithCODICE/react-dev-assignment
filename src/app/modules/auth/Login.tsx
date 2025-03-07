@@ -5,6 +5,8 @@ import { z } from "zod";
 import CustomEmailInput from "../../shared-components/atoms/Input/Email/CustomEmailInput";
 import CustomPasswordInput from "../../shared-components/atoms/Input/Password/CustomPasswordInput";
 import CustomBtn from "../../shared-components/atoms/Button/CustomBtn";
+import CustomLogoBtn from "../../shared-components/atoms/Logo/CustomLogoBtn";
+import Logo from "../../../../public/assets/logos/logo.png";
 
 const useInitForm = () => {
   const formSchema = z.object({
@@ -49,7 +51,11 @@ const Login: React.FC = () => {
   return (
     <div className="login-form">
       <div className="form-body">
-        <h2 className="text-center mb-4">Login</h2>
+        <div className="form-logo">
+            <CustomLogoBtn src={Logo} alt="Logo button" link="/" width="150px"/>
+        </div>
+        <h3 className="text-center ">Login to Access Department Dashboard</h3>
+        <p className="text-center mb-4"> Login below to access your dashboard</p>
         <form onSubmit={handleSubmit(handleLogin)}>
           <Controller
             name="email"
@@ -57,8 +63,8 @@ const Login: React.FC = () => {
             render={({ field }) => (
               <CustomEmailInput
                 id="email"
-                label="Email"
-                placeHolder="Enter your email"
+                label="Username"
+                placeHolder="Enter your username"
                 required
                 invalid={!!errors.email}
                 feedback={errors.email?.message}
@@ -84,7 +90,8 @@ const Login: React.FC = () => {
 
           <CustomBtn
             type="submit"
-            className="btn btn-primary btn-block"
+            color="primary"
+            className="w-100"
             disabled={isSubmitting}
           >
             Log in
