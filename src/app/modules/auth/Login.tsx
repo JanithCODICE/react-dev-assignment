@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { use, useEffect } from "react";
+import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import CustomEmailInput from "../../shared-components/atoms/Input/Email/CustomEmailInput";
