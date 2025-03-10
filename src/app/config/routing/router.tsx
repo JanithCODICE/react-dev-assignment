@@ -4,6 +4,7 @@ import MainLayout from "../../layouts/MainLayout";
 import ProtectedRoute from "./ProtectedRoute";
 import AuthLayout from "../../layouts/AuthLayout";
 import Dashboard from "../../modules/dashboard/Dashboard";
+import Users from "../../modules/users/Users";
 
 export const router = createBrowserRouter([
     {
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
             {
                 path: "/dashboard",
                 element: <Dashboard/>
+            },
+            {
+                path: "/users",
+                element: <Users/>
             }
         ]
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, ButtonProps } from "reactstrap";
 
-interface CustomBtnProps extends ButtonProps {
+export interface CustomBtnProps extends ButtonProps {
   children?: React.ReactNode;
   color?: string;
 }
