@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import React, { use, useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import CustomEmailInput from "../../shared-components/atoms/Input/Email/CustomEmailInput";
@@ -7,6 +7,12 @@ import CustomPasswordInput from "../../shared-components/atoms/Input/Password/Cu
 import CustomBtn from "../../shared-components/atoms/Button/CustomBtn";
 import CustomLogoBtn from "../../shared-components/atoms/Logo/CustomLogoBtn";
 import Logo from "../../../../public/assets/logos/logo.png";
+import { LoginDto } from "../../types/interfaces/request/login-dto";
+import { authService } from "../../services/api/AuthService";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { setUser } from "../../store/reducers/user.slice";
+import { setNotification } from "../../store/reducers/notification.slice";
+import { Navigate } from "react-router-dom";
 
 const useInitForm = () => {
   const formSchema = z.object({
@@ -42,10 +48,44 @@ const useInitForm = () => {
 };
 
 const Login: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const { loginSuccess } = useAppSelector((state) => state.user);
   const { control, errors, handleSubmit, isSubmitting } = useInitForm();
+  const [loading, setLoading] = React.useState(false);
 
-  const handleLogin = (data: any) => {
-    console.log(data);
+  if(loginSuccess) {
+    return <Navigate to={"/Dashboard"} replace/>
+  }
+
+  const handleLogin = async (payload: LoginDto) => {
+    console.log(payload);
+    try {
+      setLoading(true);
+      const {success, message, data} = await authService.login(payload);
+      if(!success) {
+        throw new Error(message);
+      }
+      if(data) {
+        dispatch(setUser(data));
+        dispatch(setNotification({
+          type: "success",
+          message: "Login successful",
+          visibility: true
+        }))
+        localStorage.setItem("USER_SESSION_KEY", JSON.stringify(data))
+        setLoading(false);
+        console.log('done');
+        
+      }
+    } catch (error: any) {
+      console.log(error);
+      dispatch(setNotification({
+        type: "error",
+        message: error.message ?? "Login successful",
+        visibility: true
+      }))
+      setLoading(false);
+    }
   };
 
   return (
@@ -92,7 +132,7 @@ const Login: React.FC = () => {
             type="submit"
             color="primary"
             className="w-100"
-            disabled={isSubmitting}
+            disabled={isSubmitting || loading}
           >
             Log in
           </CustomBtn>
