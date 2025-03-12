@@ -5,6 +5,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import AuthLayout from "../../layouts/AuthLayout";
 import Dashboard from "../../modules/dashboard/Dashboard";
 import Users from "../../modules/users/Users";
+import Logout from "../../modules/auth/Logout";
 
 export const router = createBrowserRouter([
     {
@@ -14,6 +15,16 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 element: <Login />
+            }
+        ]
+    },
+    {
+        path: "/logout",
+        element: <MainLayout />,
+        children: [
+            {
+                index: true,
+                element: <Logout />
             }
         ]
     },

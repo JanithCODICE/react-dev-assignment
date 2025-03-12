@@ -56,7 +56,7 @@ class ApiClient {
     public static isTokenExpired(): boolean {
         const sessionObj = this.getAPITokens("refresh");
         if (sessionObj) {
-            const now = Date.now();
+            const now = Math.floor(Date.now() / 1000);
             return now >= sessionObj.accessExpiresIn;
         }
         return false;
@@ -81,11 +81,11 @@ class ApiClient {
     }
 
     static setNewToken(sessionObj: any): void {
-        return sessionStorage.setItem("USER_SESSION_KEY", JSON.stringify(sessionObj));
+        return localStorage.setItem("USER_SESSION_KEY", JSON.stringify(sessionObj));
     }
 
     static getAPITokens(tokenType: "access" | "refresh"): any {
-        const userData = JSON.parse(sessionStorage.getItem("USER_SESSION_KEY") ?? "{}");
+        const userData = JSON.parse(localStorage.getItem("USER_SESSION_KEY") ?? "{}");
         if (userData?.session) {
             if (tokenType === "access" && userData.session.accessToken) {
                 return userData.session.accessToken;

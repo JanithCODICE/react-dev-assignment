@@ -10,6 +10,6 @@ export interface PaginatedResult<R> {
 }
 
 export interface Pagination {
-  length: number;
+  totalRowCount: number;
   pageSize: number;
 }

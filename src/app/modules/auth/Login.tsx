@@ -81,7 +81,7 @@ const Login: React.FC = () => {
       console.log(error);
       dispatch(setNotification({
         type: "error",
-        message: error.message ?? "Login successful",
+        message: error.message ?? "Login unsuccessful",
         visibility: true
       }))
       setLoading(false);
