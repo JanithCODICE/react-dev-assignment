@@ -1,12 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AuthResponse } from "../../types/interfaces/response/auth-response-dto";
-
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  status: number;
-}
+import { User } from "../../types/interfaces/Entities/User.entity";
 
 interface UserState {
   user: User | null;
@@ -33,11 +27,12 @@ const userSlice = createSlice({
       state.loginSuccess = true;
     },
     clearUser: (state) => {
-        state.user = null;
-        state.loginSuccess = false;
-    }
+      localStorage.clear();
+      state.user = null;
+      state.loginSuccess = false;
+    },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, clearUser } = userSlice.actions;
 export default userSlice.reducer;
